@@ -2,64 +2,37 @@
 <head>
     <meta charset="utf-8"/>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <style>
-        .red {
-            color: red;
-        }
-
-        .font-bold {
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
 <div id="app">
-    <!--    <div v-if="show">Yes1</div>-->
-    <!--    <div v-if="show">Yes2</div>-->
-    <!--    <div v-if="show">Yes3</div>-->
-    <!-- 여러 개 적용할 때 template -->
+    <div>
+        {{ people[0].name }} {{ people[0].age }}
+        {{ people[1].name }} {{ people[1].age }}
+        {{ people[2].name }} {{ people[2].age }}
+    </div>
 
-    <!-- v-if : 조건 안 맞으면 (false) 아예 rendering X, rendering된 코드 상에 존재 X
-         v-show: 조건 안 맞으면 (false) display가 안되는 것, 비용이 더 적다.
-         일반적으로 v-if는 토글 비용이 높고 v-show는 초기 렌더링 비용이 더 높습니다.
-         매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장합니다. -->
-    <div v-show="false">ㅁㅁㅁ</div>
-    <template v-if="state">
-        <div>Yes1</div>
-        <br>
-        <div>Yes2</div>
-        <br>
-        <div>Yes3</div>
-        <br>
-    </template>
-    <div v-else>No</div>
-    <div v-else>No</div> <!-- else 여러 개 적용 안됨 -->
+    <!-- List에서 고유한 값을 key로 넣어주어야 한다. 일반적으로 id-->
+    <div v-for="person in people" :key="person.name">
+        {{ person.name }} {{ person.age }}
+    </div>
 
-    <button @click="changeState">클릭</button>
-    <br>
-
-    <div v-if="number === 1">1</div>
-    <div v-else-if="number === 2">2</div>
-    <div v-else>3</div>
-
-
-    <button @click="increaseNumber">숫자 증가</button>
+    <!-- 고유한 value가 없다면 임의로 고유한 값을 만들어 주어야 한다.
+        index 사용 지양 - 중간에 value가 사라지면 index가 변경된다. 즉 고유하지 않음 -->
+    <div v-for="{person, index} in people" :key="person.name + '-' + person.age">
+        {{ person.name }} {{ person.age }}
+    </div>
 </div>
 <script>
     new Vue({
         el: "#app",
         data: {
-            state: true,
-            number: 1
+            people: [
+                {name: 'aa', age: 10},
+                {name: 'bb', age: 11},
+                {name: 'cc', age: 12}
+            ]
         },
-        methods: {
-            changeState() {
-                this.state = !this.state;
-            },
-            increaseNumber() {
-                this.number++;
-            }
-        }
+        methods: {}
     })
 </script>
 </body>
