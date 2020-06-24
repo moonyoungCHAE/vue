@@ -1,12 +1,12 @@
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
 <div id="app">
-<!--    {{ person.name }}, {{ person.age }}-->
-<!--    {{ nextYear() }}-->
+    <!--    {{ person.name }}, {{ person.age }}-->
+    <!--    {{ nextYear() }}-->
     {{ greetMethod("안녕하세요") }}
     <input :type="type" v-bind:value="inputData">
     <a :href="findLink()">하이퍼링크</a>
@@ -23,6 +23,13 @@
         <input type="text"><br>
         <button type="submit">Submit</button>
     </form>
+
+    <br>
+    <!--    <input :type="type" @keyup="writing" /> {{ words }}-->
+    <!-- v-on: @로 대체 가능 -->
+
+    <input :type="type" v-model="words"/> {{ words }}
+    <!-- 양방향 binding -->
 </div>
 <script>
     new Vue({
@@ -33,9 +40,10 @@
                 age: 25
             },
             inputData: "hello",
-            type: "number",
+            type: "text",
             link: "https://www.naver.com",
-            year: 2020
+            year: 2020,
+            words: ""
         },
         methods: {
             nextYear: function () { <!-- 알아서 위의 data-person 데이터를 방아온다.-->
@@ -47,23 +55,26 @@
             greetMethod: function (greeting) {
                 return greeting;
             },
-            shortGreetMethod (greeting) { <!-- 이렇게 짧게 쓸 수 있다.-->
+            shortGreetMethod(greeting) { <!-- 이렇게 짧게 쓸 수 있다.-->
                 return greeting;
             },
-            findLink () {
+            findLink() {
                 return this.link;
             },
-            alert () {
+            alert() {
                 alert("알림!");
             },
-            plus () {
+            plus() {
                 this.year++;
             },
-            minus () {
+            minus() {
                 this.year--;
             },
-            submit () {
+            submit() {
                 alert("submit!");
+            },
+            writing(event) {
+                this.words = event.target.value;
             }
         }
     })
