@@ -2,34 +2,37 @@
 <head>
     <meta charset="utf-8"/>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
-    {{ message }} <br>
-    <button @click="changeMessage()">Click</button> <br>
+    <!-- XX-YY 일 경우 'XX-YY'로 묶어주기 -->
+    <div :class = "{ red : isRed, 'font-bold': isBold }">Hello</div> <br>
+
+    <!-- fontSize -> CSS 넘어가면서 자동으로 font-size로 바뀌며 렌더링 -->
+    <div :style ="{ color: red, fontSize: size }">Style </div>
+    <button @click="update">버튼</button>
 </div>
 <script>
     new Vue({
         el: "#app",
         data: {
-            message: '안녕하세요',
-            updated: '하이하이'
+            isRed: false,
+            isBold: false,
+            red: 'red',
+            size: '30px'
         },
         methods: {
-            changeMessage() {
-                this.message = this.updated;
-            }
-        },
-        computed: {
-            reverseMessage() {
-                return this.message.split('').reverse().join('')
-            }
-        },
-        watch: {
-            // value (message)가 바뀌었을 때 기존 oldVal -> 새로운 newVal 알 수 있다.
-            // 데이터 변경 시 해당 메서드 호출된다.
-            message(newVal, oldVal) {
-                console.log(newVal, oldVal);
+            update() {
+                this.isRed = !this.isRed;
             }
         }
     })
