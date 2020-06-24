@@ -5,76 +5,24 @@
 </head>
 <body>
 <div id="app">
-    <!--    {{ person.name }}, {{ person.age }}-->
-    <!--    {{ nextYear() }}-->
-    {{ greetMethod("안녕하세요") }}
-    <input :type="type" v-bind:value="inputData">
-    <a :href="findLink()">하이퍼링크</a>
-    <!-- data 직접 입력하지 않고, binding하려면 v-bind:
-        - v-bind 생략 가능
-        - 함수도 가능 -->
-
-    <br>
-    <button v-on:click="alert()">Click Me</button>
-    {{ year }} <!--데이터가 변경됐을 때, 변경된 데이터가 화면에 출력된다.-->
-    <button v-on:click="plus()">더하기</button>
-    <button v-on:click="minus()">빼기</button>
-    <form v-on:submit="submit"> <!-- method () 있어도 없어도 된다.-->
-        <input type="text"><br>
-        <button type="submit">Submit</button>
-    </form>
-
-    <br>
-    <!--    <input :type="type" @keyup="writing" /> {{ words }}-->
-    <!-- v-on: @로 대체 가능 -->
-
-    <input :type="type" v-model="words"/> {{ words }}
-    <!-- 양방향 binding -->
+    <!-- 복잡한 연산 로직 -->
+    {{ message.split('').reverse().join('') }} <br>
+    <!-- computed 적용 -->
+    <!-- method는 괄호 필요, computed는 괄호 불필요
+         method: 캐싱 X, computed 캐싱 O -> 중복된 데이터 처리할 때 유리하다. -->
+    {{ reverseMessage }}
 </div>
 <script>
     new Vue({
         el: "#app",
         data: {
-            person: {
-                name: "코지 코더",
-                age: 25
-            },
-            inputData: "hello",
-            type: "text",
-            link: "https://www.naver.com",
-            year: 2020,
-            words: ""
+            message: '안녕하세요'
         },
         methods: {
-            nextYear: function () { <!-- 알아서 위의 data-person 데이터를 방아온다.-->
-                return this.person.name + "는 내년에 " + (this.person.age + 1) + "살 입니다.";
-            },
-            otherMethod: function () {
-                this.nextYear();
-            },
-            greetMethod: function (greeting) {
-                return greeting;
-            },
-            shortGreetMethod(greeting) { <!-- 이렇게 짧게 쓸 수 있다.-->
-                return greeting;
-            },
-            findLink() {
-                return this.link;
-            },
-            alert() {
-                alert("알림!");
-            },
-            plus() {
-                this.year++;
-            },
-            minus() {
-                this.year--;
-            },
-            submit() {
-                alert("submit!");
-            },
-            writing(event) {
-                this.words = event.target.value;
+        },
+        computed: {
+            reverseMessage() {
+               return this.message.split('').reverse().join('')
             }
         }
     })
