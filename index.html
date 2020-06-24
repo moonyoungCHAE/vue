@@ -5,24 +5,31 @@
 </head>
 <body>
 <div id="app">
-    <!-- 복잡한 연산 로직 -->
-    {{ message.split('').reverse().join('') }} <br>
-    <!-- computed 적용 -->
-    <!-- method는 괄호 필요, computed는 괄호 불필요
-         method: 캐싱 X, computed 캐싱 O -> 중복된 데이터 처리할 때 유리하다. -->
-    {{ reverseMessage }}
+    {{ message }} <br>
+    <button @click="changeMessage()">Click</button> <br>
 </div>
 <script>
     new Vue({
         el: "#app",
         data: {
-            message: '안녕하세요'
+            message: '안녕하세요',
+            updated: '하이하이'
         },
         methods: {
+            changeMessage() {
+                this.message = this.updated;
+            }
         },
         computed: {
             reverseMessage() {
-               return this.message.split('').reverse().join('')
+                return this.message.split('').reverse().join('')
+            }
+        },
+        watch: {
+            // value (message)가 바뀌었을 때 기존 oldVal -> 새로운 newVal 알 수 있다.
+            // 데이터 변경 시 해당 메서드 호출된다.
+            message(newVal, oldVal) {
+                console.log(newVal, oldVal);
             }
         }
     })
