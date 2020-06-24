@@ -14,25 +14,50 @@
 </head>
 <body>
 <div id="app">
-    <!-- XX-YY 일 경우 'XX-YY'로 묶어주기 -->
-    <div :class = "{ red : isRed, 'font-bold': isBold }">Hello</div> <br>
+    <!--    <div v-if="show">Yes1</div>-->
+    <!--    <div v-if="show">Yes2</div>-->
+    <!--    <div v-if="show">Yes3</div>-->
+    <!-- 여러 개 적용할 때 template -->
 
-    <!-- fontSize -> CSS 넘어가면서 자동으로 font-size로 바뀌며 렌더링 -->
-    <div :style ="{ color: red, fontSize: size }">Style </div>
-    <button @click="update">버튼</button>
+    <!-- v-if : 조건 안 맞으면 (false) 아예 rendering X, rendering된 코드 상에 존재 X
+         v-show: 조건 안 맞으면 (false) display가 안되는 것, 비용이 더 적다.
+         일반적으로 v-if는 토글 비용이 높고 v-show는 초기 렌더링 비용이 더 높습니다.
+         매우 자주 바꾸기를 원한다면 v-show를, 런타임 시 조건이 바뀌지 않으면 v-if를 권장합니다. -->
+    <div v-show="false">ㅁㅁㅁ</div>
+    <template v-if="state">
+        <div>Yes1</div>
+        <br>
+        <div>Yes2</div>
+        <br>
+        <div>Yes3</div>
+        <br>
+    </template>
+    <div v-else>No</div>
+    <div v-else>No</div> <!-- else 여러 개 적용 안됨 -->
+
+    <button @click="changeState">클릭</button>
+    <br>
+
+    <div v-if="number === 1">1</div>
+    <div v-else-if="number === 2">2</div>
+    <div v-else>3</div>
+
+
+    <button @click="increaseNumber">숫자 증가</button>
 </div>
 <script>
     new Vue({
         el: "#app",
         data: {
-            isRed: false,
-            isBold: false,
-            red: 'red',
-            size: '30px'
+            state: true,
+            number: 1
         },
         methods: {
-            update() {
-                this.isRed = !this.isRed;
+            changeState() {
+                this.state = !this.state;
+            },
+            increaseNumber() {
+                this.number++;
             }
         }
     })
