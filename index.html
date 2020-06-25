@@ -5,34 +5,37 @@
 </head>
 <body>
 <div id="app">
-    <div>
-        {{ people[0].name }} {{ people[0].age }}
-        {{ people[1].name }} {{ people[1].age }}
-        {{ people[2].name }} {{ people[2].age }}
-    </div>
-
-    <!-- List에서 고유한 값을 key로 넣어주어야 한다. 일반적으로 id-->
-    <div v-for="person in people" :key="person.name">
-        {{ person.name }} {{ person.age }}
-    </div>
-
-    <!-- 고유한 value가 없다면 임의로 고유한 값을 만들어 주어야 한다.
-        index 사용 지양 - 중간에 value가 사라지면 index가 변경된다. 즉 고유하지 않음 -->
-    <div v-for="{person, index} in people" :key="person.name + '-' + person.age">
-        {{ person.name }} {{ person.age }}
-    </div>
+    {{ name }}
+    <button @click="changeName">Click</button>
+</div>
+<div id="app2">
+    {{ name }}
+    <button @click="changeName">Click</button>
 </div>
 <script>
-    new Vue({
+    const app = new Vue({
         el: "#app",
         data: {
-            people: [
-                {name: 'aa', age: 10},
-                {name: 'bb', age: 11},
-                {name: 'cc', age: 12}
-            ]
+            name: "tommy"
         },
-        methods: {}
+        methods: {
+            changeName() {
+                // 다른 Vue Instance 에 접근하려면 const로 빼주기
+                app1.name = "tommy updated"
+            }
+        }
+    })
+
+    const app1 = new Vue({
+        el: "#app2",
+        data: {
+            name: "tommy"
+        },
+        methods: {
+            changeName() {
+                this.name = "tommy updated"
+            }
+        }
     })
 </script>
 </body>
