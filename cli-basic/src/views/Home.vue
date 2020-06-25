@@ -1,28 +1,30 @@
-<!--
-  Single File Component 구성
-    1) template : html code
-    2) script : data, method etc
-    3) style : html style
--->
+
 <template>
     <div>
-        <h1>Tommy Tommy</h1>
-        <p> {{ name }}</p>
-        <tommy title="home title"></tommy>
+        <h1> This is Home </h1>
+        <!--자식 컴포넌트에서 발생한 @update-name event 발생하면 updateName 메서드가 호출된다.-->
+        <InputField :name="name" @update-name="updateName"> </InputField>
+        {{name}}
+        <button> Submit </button>
     </div>
 </template>
 
 <script>
-    import Tommy from "../components/Tommy";
+    import InputField from "../components/InputField";
 
     export default {
-        components: {Tommy},
+        components: {InputField},
         comments: {
-            Tommy
+            InputField
         },
         data() {
             return {
                 name: 'Tommy Tommy'
+            }
+        },
+        methods: {
+            updateName(name) {
+                this.name = name;
             }
         }
     }
