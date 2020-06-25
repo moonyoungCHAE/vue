@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container">
+    <h1 class="text-center">Todo App</h1>
+    <input type="text" class="w-100 p-2" placeholder="입력하세요." v-model="todoInput" @keyup.enter="addTodo">
+    <hr>
+    <Todo v-for="todo in todos" :key="todo.id" :todo="todo" @update="update(todo.index)"></Todo>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Todo from "./components/Todo";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    Todo
+  },
+  data() {
+    return {
+      todoInput: '',
+      todos: [
+        { id: 1, text: 'buy a car', checked: false},
+        { id: 2, text: 'buy a pants', checked: true},
+      ]
+    }
+  },
+  methods: {
+    update(todo, index) {
+      console.log(todo.text);
+      console.log(index);
+    },
+    addTodo(e) {
+      this.todos.push({
+        id: Math.random(),
+        text: e.target.value,
+        checked: false
+      })
+      this.todoInput = "";
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
