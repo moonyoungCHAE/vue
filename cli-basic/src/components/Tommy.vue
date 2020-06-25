@@ -1,15 +1,16 @@
 <template>
     <div>
-        <h1> {{ title }}</h1>
-        <p> {{ name }}</p>
-        <button @click="updateName">Change Name</button>
+        <p> header </p>
+        <slot name="header" :slotName="name"> <!-- slot 안에 데이터를 Instance에 해당 Component의 데이터를 넘겨준다. -->
+        </slot> <!-- HTML Tag를 넣고 싶은 곳에 slot을 넣어준다 -->
+        <p> body </p>
+        <slot name="body"></slot>
+        <slot></slot>
     </div>
 </template>
 
 <script>
     export default {
-        // 부모 컴포넌트 (이 컴포넌트 사용하면 컴포너트)에서 props 데이터를 수정하면 안된다.
-        // props: ['title'],
         props: {
             title: {
                 type: String,
