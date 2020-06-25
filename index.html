@@ -9,20 +9,13 @@
     </tommy-button>
 </div>
 <script>
-    // 전역 등록 : (단점) 사용하지 않더라도 최종 빌드에 들어가게 된다.
-    Vue.component('tommy-button', {
-        // template 안에는 하나의 tag (=Root Element)로 묶어주어야 한다.
+    const TommyButton =  {
         template: `
         <div>
             {{ name }}
             <button @click="changeName">Click</button>
         </div>
         `,
-        // data: {
-        //     name: "tommy"
-        // },
-        <!-- 이런 식으로 쓰면 모든 component 에서 공유하는 global 변수 효과,
-            에러난다. The "data" option should be a function that returns a per-instance value in component definitions. -->
         data() {
             return {
                 name: "tommy"
@@ -33,9 +26,13 @@
                 this.name = "tommy updated"
             }
         }
-    });
-    // 컴포넌트는 Vue 인스턴스에서 사용할 수 있다.
-    new Vue({el: '#app'})
+    };
+
+    const app = new Vue({
+        el: '#app',
+        components: {
+            'tommy-button': TommyButton
+        }})
 </script>
 </body>
 </html>
