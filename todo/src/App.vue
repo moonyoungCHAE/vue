@@ -1,20 +1,26 @@
 <template>
     <div id="app" class="container">
         <h1 class="text-center">Todo App</h1>
-        <input type="text" class="w-100 p-2" placeholder="입력하세요." v-model="todoInput" @keyup.enter="addTodo">
         <hr>
-        <Todo v-for="todo in todos" :key="todo.id" :todo="todo"
-              @toggleCheckbox="toggleCheckbox"
-              @deleteCheckbox="deleteCheckbox"></Todo>
+        <CompletedTodo :todos="todos" ></CompletedTodo>
+        <InputField @addTodo="addTodo"></InputField>
+        <hr>
+        <TodoList :todos="todos"
+                  @toggleCheckbox="toggleCheckbox"
+                  @deleteCheckbox="deleteCheckbox"></TodoList>
     </div>
 </template>
 
 <script>
-    import Todo from "./components/Todo";
+    import InputField from "./components/InputField";
+    import TodoList from "./components/TodoList";
+    import CompletedTodo from "./components/CompletedTodo";
 
     export default {
         components: {
-            Todo
+            InputField,
+            TodoList,
+            CompletedTodo
         },
         data() {
             return {
@@ -34,13 +40,12 @@
                 })
                 this.todos[index].checked = param.checked;
             },
-            addTodo(e) {
+            addTodo(input) {
                 this.todos.push({
                     id: Math.random(),
-                    text: e.target.value,
+                    text: input,
                     checked: false
                 })
-                this.todoInput = "";
             },
             deleteCheckbox(id) {
                 const index = this.todos.findIndex(todo => {
