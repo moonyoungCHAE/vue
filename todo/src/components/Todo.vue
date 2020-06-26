@@ -18,14 +18,13 @@
         },
         methods: {
             toggleCheckbox(e) {
-                //  보내는 parameter { } 로 묶으면 Object로 전송된다.
-                this.$emit('toggleCheckbox', {
+                this.$store.commit('TOGGLE_TODO', {
                     id: this.todo.id,
                     checked: e.target.checked
                 });
             },
             deleteBox(id) {
-                this.$emit('deleteCheckbox', id)
+                this.$store.commit('DELETE_TODO', id);
             }
         }
     }
