@@ -13,7 +13,9 @@
                 return this.$store.state.todos;
             },
             completedTodos() {
-                return this.todos.filter(todo => todo.checked === true).length;
+                // computed는 괄호 없음
+                // vuex getter ~ computed 안에서 사용할 것
+                return this.$store.getters.numberOfCompletedTodo;
             }
         }
     }

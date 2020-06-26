@@ -52,6 +52,10 @@ export default new Vuex.Store({
         }
     },
     getters: {
-        // computed와 비슷한 역할
-    }
+        // computed와 비슷한 역할 ~ store에 저장한 값 computed 처리하고 싶을 때 ?
+        // 캐싱 된다.
+        numberOfCompletedTodo: state => {
+                return state.todos.filter(todo => todo.checked === true).length;
+            }
+        }
 });
