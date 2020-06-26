@@ -2,10 +2,10 @@
     <div id="app" class="container">
         <h1 class="text-center">Todo App</h1>
         <hr>
-        <CompletedTodo :todos="todos" ></CompletedTodo>
+        <CompletedTodo></CompletedTodo>
         <InputField @addTodo="addTodo"></InputField>
         <hr>
-        <TodoList :todos="todos"
+        <TodoList
                   @toggleCheckbox="toggleCheckbox"
                   @deleteCheckbox="deleteCheckbox"></TodoList>
     </div>
@@ -24,11 +24,7 @@
         },
         data() {
             return {
-                todoInput: '',
-                todos: [
-                    {id: 1, text: 'buy a car', checked: false},
-                    {id: 2, text: 'buy a pants', checked: true},
-                ]
+                todoInput: ''
             }
         },
         methods: {

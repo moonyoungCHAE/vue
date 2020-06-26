@@ -2,7 +2,7 @@
     <div>
         <input type="checkbox" :checked="todo.checked" @change="toggleCheckbox">
         <span class="m1-3" :style="todo.checked ? 'text-decoration: line-through' : ''">
-        {{ todo.text }}
+        {{ todo.text}}
         </span>
         <button @click="deleteBox(todo.id)">DELETE</button>
     </div>
