@@ -11,8 +11,9 @@
         },
         methods: {
             addTodo(e) {
-                // mutation 메서드 부를 때
-                this.$store.commit('ADD_TODO', e.target.value);
+                // mutation 메서드 부를 때 - commit
+                // actions 메서드 부를 때 = dispatch
+                this.$store.dispatch('ADD_TODO', e.target.value);
                 this.todoInput = ""
             }
         }

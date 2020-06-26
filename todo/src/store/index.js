@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -9,7 +10,8 @@ export default new Vuex.Store({
         todos: [
             {id: 1, text: 'buy a car', checked: false},
             {id: 2, text: 'buy a pants', checked: true},
-        ]
+        ],
+        users: []
     },
     mutations: {
         // 데이터를 수정하는 곳
@@ -31,10 +33,23 @@ export default new Vuex.Store({
                 return todo.id === id;
             })
             state.todos.slice(index, 1)
+        },
+        SET_USERS(state, users) {
+            state.users = users;
         }
     },
     actions: {
         // 메서드가 들어가는 곳
+        addTodo({commit}, value) {
+            commit('ADD_TODO', value)
+        },
+        getUsers({commit}) {
+            axios.get('https://jsonplaceholder.typicode.com/users').then(
+                res => {
+                    commit('SET_USERS', res.data);
+                }
+            )
+        }
     },
     getters: {
         // computed와 비슷한 역할
